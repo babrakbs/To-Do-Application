@@ -1,27 +1,24 @@
-import { View, Text, TouchableOpacity, StatusBar } from 'react-native'
 import React from 'react'
-import CustomText from '../../../Components/Text'
-import { styles } from './style'
+import { StatusBar, View } from 'react-native'
 import CustomButton from '../../../Components/Button'
+import CustomText from '../../../Components/Text'
 import { colors } from '../../../Constants'
+import { styles } from './style'
 
 const Welcome = ({ navigation }) => {
   return (
     <View style={styles.mainContainer}>
-      <StatusBar backgroundColor={colors.primaryColor}/>
+      <StatusBar backgroundColor={colors.primaryColor} />
       <CustomText
         customStyle={styles.welcomeText}
-        value='Remembering task is now easy...'
-      />
+        value='Remembering task is now easy...' />
 
       <CustomButton
         onPress={() => navigation.replace('Login')}
-        styles={styles.btn}
-      >
+        styles={styles.btn}>
         <CustomText
           customStyle={styles.btnText}
-          value='Next'
-        />
+          value='Next' />
       </CustomButton>
     </View>
   )

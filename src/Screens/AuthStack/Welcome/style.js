@@ -7,31 +7,30 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.primaryColor,
         justifyContent: "center",
-        alignItems:'center'
     },
     welcomeText: {
-        paddingVertical:hp(2),
+        paddingVertical: hp(2),
         fontWeight: '500',
         textAlign: "center",
         fontSize: fontSize.fontSize6,
         color: colors.white,
+        width: wp(90),
+        alignSelf: 'center'
     },
-
     btnText: {
         fontWeight: '500',
         textAlign: "center",
-        fontSize: fontSize.fontSize5,
+        justifyContent: 'center',
+        fontSize: fontSize.fontSize4,
         color: colors.white,
     },
-    btn:{
+    btn: {
+        paddingVertical: hp(1.5),
+        alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: colors.purple,
-        paddingVertical: hp(1.5),
-        marginTop:hp(2),
-        width: wp(30),
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: radius.radius3
+        width: wp(90),
+        borderRadius: radius.radius1,
+        marginVertical: hp(2)
     },
-
 })

@@ -1,13 +1,12 @@
 import { StyleSheet } from "react-native";
-import { colors, fontSize, radius } from "../../../Constants";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { colors, fontSize, radius } from "../../../Constants";
 
 export const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         backgroundColor: colors.white,
     },
-
     head: {
         color: colors.black,
         alignSelf: 'center',
@@ -25,67 +24,68 @@ export const styles = StyleSheet.create({
         paddingVertical: hp(2),
         textAlign: 'center',
     },
-
-    flatListItem: {
+    flatListItemView: {
         flexDirection: 'row',
+        alignItems:'center',
         justifyContent:'space-around',
-        borderBottomColor:colors.black,
-        borderBottomWidth:wp(0.2),
-        paddingHorizontal:wp(1.5),
-    },
-
-    flatListDataView: {
-        marginVertical: hp(1),
-        paddingHorizontal:wp(0.5),
-        // backgroundColor:'green',
+        borderColor: colors.black,
+        width: wp(90),
+        alignSelf: 'center',
+        height: hp(8.5),
+        marginVertical: hp(1.5),
+        elevation: 10,
+        backgroundColor:colors.white,
+        borderRadius: radius.radius1,
+        paddingHorizontal:wp(1)
     },
     titleDescpView: {
-        width:wp(75),
-        marginVertical: hp(1),
-        paddingHorizontal:wp(0.5),
-        // backgroundColor:'red',
+        width: wp(70),
+        height: hp(8),
+        justifyContent: 'space-evenly',
+        alignItems:'flex-start',
+        paddingHorizontal: wp(5),
     },
-    flatListTitle:{
-        fontSize: fontSize.fontSize4,
+    flatListTitle: {
+        fontSize: fontSize.fontSize4point2,
         color: colors.primaryColor,
         textAlign: 'left',
-        paddingHorizontal: wp(4),
-        marginVertical: hp(1),
-        fontWeight:'500'
+        fontWeight: '700'
     },
-    flatListDescription:{
+    flatListDescription: {
         fontSize: fontSize.fontSize4,
-        color: colors.black,
+        color: colors.gray,
         textAlign: 'left',
-        paddingHorizontal: wp(4),
-        marginVertical: hp(1)
     },
-    upcomingView:{
-        height:hp(50),
+    upcomingView: {
+        height: hp(50),
+        justifyContent: 'center',
+    },
+    upcomingTodo: {
+        alignSelf: 'center',
+        fontSize: fontSize.fontSize5,
+        color: colors.primaryColor,
+        fontWeight: '700'
+    },
+    deleteView:{
+        height:hp(8),
+        width:wp(30),
         justifyContent:'center',
-        // backgroundColor:'red'
-    },
-    upcomingTodo:{
-        alignSelf:'center',
-        fontSize:fontSize.fontSize5,
-        color:colors.primaryColor,
-        fontWeight:'700'
+        alignItems:'center'
     },
     deleteBtn: {
         backgroundColor: colors.red,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf:'center',
-        borderRadius: radius.radius3,
-        height:hp(5),
-        width:wp(20),
-        padding:5,
+        alignSelf: 'center',
+        borderRadius: radius.radius1,
+        height: hp(4),
+        width: wp(17),
     },
     deleteText: {
         textAlign: 'center',
-        fontWeight:'500',
+        fontWeight: '700',
         color: colors.white,
-        fontSize:fontSize.fontSize3point5
+        fontSize: fontSize.fontSize3point5
     },
     btnTextTodo: {
         fontWeight: '500',
@@ -99,25 +99,25 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: colors.purple,
-        width: wp(60),
+        width: wp(90),
         borderRadius: radius.radius1,
-        marginVertical: hp(1)
     },
     btnTextLogout: {
-        fontWeight: '400',
+        fontWeight: '500',
         textAlign: "center",
-        fontSize: fontSize.fontSize4point5,
-        color: colors.white,
-    },
-    btnLogout:{
-        alignSelf: 'center',
-        backgroundColor: colors.black,
-        paddingVertical: hp(1.5),
-        marginVertical:hp(2),
-        width: wp(30),
-        alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: radius.radius3
+        fontSize: fontSize.fontSize4,
+        color: colors.purple,
+    },
+    btnLogout: {
+        paddingVertical: hp(1.5),
+        alignItems: 'center',
+        alignSelf: 'center',
+        backgroundColor: colors.white,
+        width: wp(90),
+        borderRadius: radius.radius1,
+        marginVertical: hp(2),
+        elevation:10,
     },
     modalBackground: {
         flex: 1,
@@ -128,22 +128,6 @@ export const styles = StyleSheet.create({
     modalContainer: {
         justifyContent: "center",
         alignSelf: "center",
-    },
-    alertBackground:{
-        height:hp(50),
-        width:wp(50),
-        backgroundColor:'red',
-        alignSelf:'center',
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    alertContainer:{
-        height:hp(50),
-        width:wp(50),
-        backgroundColor:'red',
-        alignSelf:'center',
-        alignItems:'center',
-        justifyContent:'center'
     },
     placeholderTextColor: colors.black,
 })

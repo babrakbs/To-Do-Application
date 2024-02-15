@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { colors, fontSize, radius } from "../../../Constants";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 export const styles = StyleSheet.create({
     mainContainer: {
@@ -16,11 +16,13 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
     },
     labels: {
-        fontSize: fontSize.small,
+        fontSize: fontSize.fontSize3point7,
         color: colors.black,
-        marginVertical: hp(1),
+        marginVertical: hp(0.5),
         paddingHorizontal: wp(5),
-        paddingVertical:hp(1)
+        marginTop: hp(2),
+        marginBottom:hp(1),
+        fontWeight: '500'
     },
     btnTextCreate: {
         fontWeight: '500',
@@ -34,24 +36,23 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: colors.purple,
-        width: wp(60),
+        width: wp(90),
         borderRadius: radius.radius1,
-        marginVertical: hp(3)
+        marginVertical: hp(2)
     },
     descpField:{
         justifyContent: 'center',
         textAlign: 'left',
-        textAlignVertical:'top',
+        textAlignVertical: 'top',
         borderWidth: wp(0.2),
         width: wp(90),
         alignSelf: 'center',
-        paddingHorizontal: wp(5),
-        borderRadius: radius.radius2,
-        fontSize:fontSize.fontSize3point5,
-        height:hp(15),
-        paddingVertical:hp(1.5),
+        paddingHorizontal: wp(4),
+        borderRadius: radius.radius1,
+        fontSize: fontSize.fontSize4,
+        height: hp(15),
+        paddingVertical: hp(1.5),
     },
-
     error: {
         fontSize: fontSize.avgSmall,
         color: colors.red,
@@ -68,5 +69,4 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "center",
     },
-
 })

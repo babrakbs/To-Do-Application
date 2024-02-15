@@ -1,14 +1,14 @@
-import { View, Text, TouchableOpacity, Alert, Keyboard, ActivityIndicator, Modal, StatusBar } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { styles } from './style'
-import { baseUrl, colors } from '../../../Constants'
 import axios from 'axios'
+import React, { useState } from 'react'
+import { ActivityIndicator, Modal, StatusBar, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { setToken } from '../../../Redux/reducer'
-import InputField from '../../../Components/InputField'
-import CustomText from '../../../Components/Text'
 import CustomButton from '../../../Components/Button'
 import Header from '../../../Components/Header'
+import InputField from '../../../Components/InputField'
+import CustomText from '../../../Components/Text'
+import { baseUrl, colors } from '../../../Constants'
+import { setToken } from '../../../Redux/reducer'
+import { styles } from './style'
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('')
@@ -35,27 +35,28 @@ const Login = ({ navigation }) => {
                 setPasswordError('Please enter password');
                 return;
             }
-
             if ((email && !emailRegex.test(email)) || (password && !passwordRegex.test(password))) {
                 console.log('ERROR2')
-                setEmailError('Invalid Email Pattern');
-                setPasswordError('Must contain 1 Capital letter, 1 special character, and 1 number; Password must be at least 8 characters long');
-
+                if (email && !emailRegex.test(email)) {
+                    setEmailError('Invalid Email Pattern');
+                    setPasswordError('')
+                }
+                else if (password && !passwordRegex.test(password)) {
+                    setPasswordError('Must contain 1 Capital letter, 1 special character, and 1 number; Password must be at least 8 characters long');
+                    setEmailError('')
+                }
                 return;
             }
-
             if (!email) {
                 console.log('ERROR3')
                 setEmailError('Please enter email');
                 return;
             }
-
             if (!password) {
                 console.log('ERROR4')
                 setPasswordError('Please enter password');
                 return;
             }
-
             setLoading(true)
             const res = await axios.post(`${baseUrl.api}login`, {
                 email: email,
@@ -65,15 +66,12 @@ const Login = ({ navigation }) => {
                     'Content-Type': 'application/json',
                 }
             });
-
             if (res?.data?.success) {
                 setEmail('');
                 setPassword('');
                 setEmailError('');
                 setPasswordError('');
                 setResponse(res.data);
-                // console.log('Response', res.data);
-                // console.log('Token', res.data.user.token);
                 setLoading(false)
                 dispatch(setToken(res.data.user.token));
             }
@@ -91,13 +89,11 @@ const Login = ({ navigation }) => {
             }
         }
     };
-
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const handleEmail = async (input) => {
         setEmail(input);
         setEmailError('');
     };
-
     const validateEmail = () => {
         if (email) {
             if (!emailRegex.test(email)) {
@@ -111,8 +107,6 @@ const Login = ({ navigation }) => {
             setEmailError('');
         }
     };
-
-    //Password Logic
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d\s]).{8,}$/;
     const handlePassword = (input) => {
         setPassword(input);
@@ -131,14 +125,13 @@ const Login = ({ navigation }) => {
             setPasswordError('');
         }
     };
-
     return (
         <View style={styles.mainContainer}>
-          <StatusBar backgroundColor={colors.primaryColor}/>
+            <StatusBar backgroundColor={colors.primaryColor} />
             <Header
-            titleTop='To Do Application'
-            titleBottom='Login Screen'
-            customBottomTitleStyles={styles.customBottomTitleStyles}
+                titleTop='To Do Application'
+                titleBottom='Login Screen'
+                customBottomTitleStyles={styles.customBottomTitleStyles}
             />
             <CustomText
                 customStyle={styles.labels}
@@ -158,7 +151,6 @@ const Login = ({ navigation }) => {
                     value={emailError}
                 />
             }
-
             <Text allowFontScaling={false} style={styles.labels}>Enter Password</Text>
             <InputField
                 placeholder='Password'
@@ -167,7 +159,6 @@ const Login = ({ navigation }) => {
                 secureTextEntry={true}
                 onChangeText={handlePassword}
                 onBlur={validatePassword}
-
             >
             </InputField>
             {passwordError &&
@@ -178,20 +169,18 @@ const Login = ({ navigation }) => {
             }
             <CustomButton
                 onPress={() => handleLogin()}
-            >
+                styles={styles.btn}>
                 <CustomText
                     customStyle={styles.loginText}
                     value='Login'
                 />
             </CustomButton>
             <CustomText
-                customStyle={styles.alreadyText}
-            >
+                customStyle={styles.alreadyText}>
                 Don't have an Account?{" "}
                 <CustomText
                     customStyle={styles.signUpText}
-                    onPress={() => moveToSignUpScreen()}
-                >
+                    onPress={() => moveToSignUpScreen()}>
                     Sign up
                 </CustomText>
             </CustomText>
@@ -201,15 +190,13 @@ const Login = ({ navigation }) => {
                 visible={loading}
                 onRequestClose={() => {
                     setLoading(false);
-                }}
-            >
+                }}>
                 <View style={styles.modalBackground}>
                     <View style={styles.modalContainer}>
                         <ActivityIndicator size={"large"} color={colors.primaryColor} animating={loading} />
                     </View>
                 </View>
             </Modal>
-
         </View>
     )
 }

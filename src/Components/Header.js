@@ -1,15 +1,15 @@
 import {
-    View,
-    StyleSheet,
-    TouchableOpacity,
     Image,
+    StyleSheet,
     Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import {
-    widthPercentageToDP as wp,
     heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
-import { colors, fontSize, radius } from "../Constants";
+import { colors, fontSize } from "../Constants";
 
 const Header = (props) => {
     return (
@@ -17,8 +17,6 @@ const Header = (props) => {
             style={[
                 props.headerStyle ? props.headerStyle : styles.mainContainer,
             ]}>
-
-            {/* Top View */}
             <View style={props.customTopView ? props.customTopView : styles.topView}>
                 <View style={{ height: hp(5), width: wp(10) }}>
                     <TouchableOpacity onPress={props?.onBackButtonPressTop}>
@@ -37,8 +35,6 @@ const Header = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-
-            {/* Bottom View */}
             <View style={props.customBottomView ? props.customBottomView : styles.bottomView}>
                 <View style={{ height: hp(5), width: wp(10) }}>
                     <TouchableOpacity onPress={props?.onBackButtonPressBottom}>
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
     },
     topTitleStyles: {
         color: colors.midBlue,
-        fontSize: fontSize.fontSize5,
+        fontSize: fontSize.fontSize6,
         textAlign: 'center',
         fontWeight:'500',
         justifyContent: 'center',

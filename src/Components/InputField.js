@@ -1,10 +1,6 @@
-import {
-    StyleSheet,
-    Text,
-    TextInput,
-} from "react-native";
+import { StyleSheet, TextInput } from "react-native";
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { colors, fontSize, radius } from "../Constants";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const InputField = (props) => {
     return (
@@ -26,21 +22,18 @@ const InputField = (props) => {
 };
 
 const styles = StyleSheet.create({
-
     textInput: {
         justifyContent: 'center',
         textAlign: 'left',
         borderWidth: wp(0.2),
         width: wp(90),
         alignSelf: 'center',
-        paddingHorizontal: wp(5),
-        borderRadius: radius.radius2,
-        fontSize: fontSize.fontSize3point5
-
+        paddingHorizontal: wp(4),
+        borderRadius: radius.radius1,
+        fontSize: fontSize.fontSize4,
+        paddingVertical: hp(1),
+        marginVertical: hp(0.5)
     },
-
     placeholderTextColor: colors.black
-
-
 });
 export default InputField;

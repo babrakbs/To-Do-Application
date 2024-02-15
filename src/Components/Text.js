@@ -1,7 +1,4 @@
-import {
-    StyleSheet,
-    Text,
-} from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { colors, fontSize } from "../Constants";
 
 const CustomText = (props) => {
@@ -19,7 +16,6 @@ const CustomText = (props) => {
 };
 
 const styles = StyleSheet.create({
-
     title: {
         color: colors.midBlue,
         fontSize: fontSize.fontSize5,
@@ -28,7 +24,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
-
-
 });
 export default CustomText;

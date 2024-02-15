@@ -1,22 +1,24 @@
-import { View, Text, FlatList, TextInput, Pressable, TouchableOpacity, StatusBar, Modal, ActivityIndicator, Alert, } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { styles } from './style'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Alert, FlatList, Modal, StatusBar, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { baseUrl, colors } from '../../../Constants'
-import CustomText from '../../../Components/Text'
-import InputField from '../../../Components/InputField'
 import CustomButton from '../../../Components/Button'
+import InputField from '../../../Components/InputField'
+import CustomText from '../../../Components/Text'
+import { baseUrl, colors } from '../../../Constants'
 import { setToken } from '../../../Redux/reducer'
+import { styles } from './style'
 
 const Home = ({ navigation }) => {
   const [response, setResponse] = useState()
   const [toDoTasks, setToDoTasks] = useState([])
   const [loading, setLoading] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch()
   const token = useSelector((state) => state?.reducer?.token);
   const focused = useIsFocused()
+
   useEffect(() => {
     focused && getAllItems()
   }, [focused])
@@ -30,14 +32,10 @@ const Home = ({ navigation }) => {
           'Authorization': `Bearer ${token}`
         }
       });
-
       if (res?.data?.success) {
         setResponse(res.data);
-        // console.log('Response', res.data.items.data);
         setToDoTasks(res.data.items.data)
-        // console.log('Token', res.data.user.token);
       }
-
     }
     catch (err) {
       console.error('Login error:', err);
@@ -46,8 +44,8 @@ const Home = ({ navigation }) => {
       setLoading(false);
     }
   };
+
   const deleteItem = async (item) => {
-    // console.log('ITEM', item.id)
     const id = item?.id
     try {
       const res = await axios.delete(`${baseUrl.api}item/${id}`, {
@@ -56,16 +54,12 @@ const Home = ({ navigation }) => {
           'Authorization': `Bearer ${token}`
         }
       });
-
       console.log('Data', res)
-
       if (res?.data?.success) {
         setResponse(res.data);
-        // console.log('Response', res.data);
         const updatedTasks = toDoTasks.filter(task => task.id !== id);
         setToDoTasks(updatedTasks);
       }
-
     }
     catch (err) {
       console.error('Login error:', err);
@@ -95,14 +89,12 @@ const Home = ({ navigation }) => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${token}`
         }
       });
       console.log('RES', res)
       if (res?.data?.success) {
         dispatch(setToken(null));
       }
-
     } catch (err) {
       console.error('Logout error:', err);
     } finally {
@@ -110,13 +102,9 @@ const Home = ({ navigation }) => {
     }
   };
 
-
-  const [searchQuery, setSearchQuery] = useState('');
-
   const handleSearch = (text) => {
     setSearchQuery(text);
   };
-
   const filteredItems = toDoTasks.filter(item =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -126,45 +114,36 @@ const Home = ({ navigation }) => {
       <StatusBar backgroundColor={colors.primaryColor} />
       <CustomText
         customStyle={styles.head}
-        value="To Do's List"
-      />
+        value="To Do's List" />
       <InputField
         placeholder='Search your next task'
-        onChangeText={handleSearch}
-      />
-
+        onChangeText={handleSearch} />
       <CustomText
         customStyle={styles.listText}
-        value="List of ToDo's"
-      />
+        value="List of ToDo's" />
       {filteredItems.length > 0 ? (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={filteredItems}
           renderItem={({ item, index }) => (
-            <View style={styles.flatListItem}>
-              <CustomButton
-                styles={styles.titleDescpView}
-                onPress={() => navigation.navigate('ViewToDo', { data: item })}>
-                <View style={styles.flatListDataView}>
-                  {/* <CustomText numberOfLines={1} customStyle={styles.flatListTitle}>
-                    {item.id}{')'} {item.title}
-                  </CustomText> */}
-                  <CustomText numberOfLines={1} customStyle={styles.flatListTitle}>
-                    {'Title:'} {item.title}
-                  </CustomText>
-                  {/* <CustomText numberOfLines={1} customStyle={styles.flatListDescription} value={item.description} /> */}
-                  <CustomText numberOfLines={1} customStyle={styles.flatListDescription} >
-                  {'Description:'} {item.description}
-                  </CustomText>
-                </View>
-              </CustomButton>
-              <CustomButton onPress={() => deleteItem(item)} styles={styles.deleteBtn}>
-                <CustomText customStyle={styles.deleteText} value='Delete' />
-              </CustomButton>
-            </View>
+            <CustomButton styles={styles.flatListItemView}
+              onPress={() => navigation.navigate('ViewToDo', { data: item })}>
+              <View style={styles.titleDescpView}>
+                <CustomText numberOfLines={1} customStyle={styles.flatListTitle}>
+                  {item.title}
+                </CustomText>
+                <CustomText numberOfLines={1} customStyle={styles.flatListDescription} >
+                  {item.description}
+                </CustomText>
+              </View>
+              <View style={styles.deleteView}>
+                <CustomButton onPress={() => deleteItem(item)} styles={styles.deleteBtn}>
+                  <CustomText customStyle={styles.deleteText} value='Delete' />
+                </CustomButton>
+              </View>
+            </CustomButton>
           )}
-          keyExtractor={item => item.id.toString()}
-        />
+          keyExtractor={item => item.id.toString()} />
       ) : (
         <View style={styles.upcomingView}>
           <CustomText customStyle={styles.upcomingTodo} value="You don't have any due task yet :)" />
@@ -180,12 +159,10 @@ const Home = ({ navigation }) => {
 
       <CustomButton
         onPress={() => handleLogout()}
-        styles={styles.btnLogout}
-      >
+        styles={styles.btnLogout}>
         <CustomText
           customStyle={styles.btnTextLogout}
-          value='Logout'
-        />
+          value='Logout' />
       </CustomButton>
 
       <Modal
@@ -194,8 +171,7 @@ const Home = ({ navigation }) => {
         visible={loading}
         onRequestClose={() => {
           setLoading(false);
-        }}
-      >
+        }}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
             <ActivityIndicator size={"large"} color={colors.primaryColor} animating={loading} />

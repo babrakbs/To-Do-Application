@@ -6,11 +6,9 @@ export const colors = {
     midBlue:'#2C2646',
     gray: '#908BA6',
     lightGray:'#EAEAEA',
-    // ashwhite: '#EEF2FF',
     navyblue: '#2580D4',
     darkblue:'#23395d',
     darkGray:'#AEABC2',
-    // lightGray: '#f5f5f5',
     white: '#FFFFFF',
     black: '#000000',
     purple:'#A020F0',
@@ -23,24 +21,9 @@ export const colors = {
     lightGreen:'#089931',
     gold:'#FFD700',
     flatlist_blue:'#4D93FF',
-    // lightGreen:'#90EE90',
     lightpink:'#F2D0C2',
     orange:'#F88736'
-
-
 };
-
-// export const fontFamily = {
-//     damionRegular: 'Damion-Regular',
-//     // damionBold:'',
-//     // damionSemiBold:'',
-//     // damionThin:'',
-//     dmSansRegular:'DMSans_24pt-Regular',
-//     dmSansBold:'DMSans_24pt-Bold',
-//     dmSansSemiBold:'DMSans_24pt-SemiBold',
-//     dmSansThin:'DMSans-Thin'
- 
-// };
 
 export const radius = {
     radius1:hp(1),
@@ -48,7 +31,6 @@ export const radius = {
     radius3:wp(3),
     radius3point5: wp(3.5),
     radius4: wp(4),
-    // fourhp:hp(4),
     radius5: wp(5),
     radius6:wp(6),
     radius7:wp(7),
@@ -65,8 +47,6 @@ export const radius = {
     radius18:wp(18),
     radius19:wp(19),
     radius20:wp(20)
-
-
 };
 
 export const fontSize = {

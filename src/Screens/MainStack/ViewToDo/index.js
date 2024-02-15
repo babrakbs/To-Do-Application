@@ -1,18 +1,17 @@
-import { View, Text, TextInput, TouchableOpacity, Alert, Keyboard, Modal, ActivityIndicator, StatusBar } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { styles } from './style'
-import { baseUrl, colors } from '../../../Constants'
 import axios from 'axios'
+import React, { useState } from 'react'
+import { ActivityIndicator, Modal, StatusBar, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import CustomText from '../../../Components/Text'
-import InputField from '../../../Components/InputField'
 import CustomButton from '../../../Components/Button'
+import InputField from '../../../Components/InputField'
+import CustomText from '../../../Components/Text'
+import { baseUrl, colors } from '../../../Constants'
+import { styles } from './style'
 
 const ViewTodo = ({ navigation, route }) => {
   const content = route?.params;
   console.log('View Data', content?.data)
   const id = content?.data?.id
-
   const [title, setTitle] = useState(content?.data?.title)
   const [description, setDescription] = useState(content?.data?.description)
   const [titleError, setTitleError] = useState('')
@@ -34,20 +33,15 @@ const ViewTodo = ({ navigation, route }) => {
             'Authorization': `Bearer ${token}`
           }
         });
-
         if (res?.data?.success) {
           setTitle('');
           setDescription('');
           setTitleError('');
           setDescriptionError('');
           setResponse(res.data);
-          // console.log('Response', res.data);
           setLoading(false)
           navigation.goBack()
-          // console.log('Token', res.data.user.token);
-          // dispatch(setToken(res.data.user.token));
         }
-
       }
       catch (err) {
         console.error('Login error:', err);
@@ -60,9 +54,7 @@ const ViewTodo = ({ navigation, route }) => {
       setDescriptionError('Must Conatin Data')
       setTitleError('Must Conatin Data')
     }
-
   };
-
 
   const handleTitle = async (input) => {
     setTitle(input);
@@ -105,15 +97,13 @@ const ViewTodo = ({ navigation, route }) => {
         value={title}
         keyboardType='default'
         onChangeText={handleTitle}
-        onBlur={validateTitle}
-      >
+        onBlur={validateTitle}>
       </InputField>
       {titleError &&
         <CustomText
           customStyle={styles.error}
           value={titleError} />
       }
-
       <CustomText
         customStyle={styles.labels}
         value='Enter Description' />
@@ -124,9 +114,7 @@ const ViewTodo = ({ navigation, route }) => {
         value={description}
         keyboardType='default'
         onChangeText={handleDescription}
-        onBlur={validateDescription}
-
-      >
+        onBlur={validateDescription}>
       </InputField>
       {descriptionError &&
         <CustomText
@@ -146,8 +134,7 @@ const ViewTodo = ({ navigation, route }) => {
         visible={loading}
         onRequestClose={() => {
           setLoading(false);
-        }}
-      >
+        }}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
             <ActivityIndicator size={"large"} color={colors.primaryColor} animating={loading} />
