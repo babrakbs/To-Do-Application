@@ -51,9 +51,8 @@ const SignUp = ({ navigation }) => {
                 }
             });
 
-            setLoading(false);
-
             if (res?.data?.success) {
+                setLoading(false);
                 Alert.alert(res.data.message, '', [
                     { text: 'OK', onPress: () => navigation.navigate('Login') }
                 ]);
@@ -66,14 +65,18 @@ const SignUp = ({ navigation }) => {
             console.error('Signup error:', err);
             if (err.response && err.response.status === 422) {
                 setLoading(false)
-                setEmailError('This email is already in use');
+                // setEmailError('This email is already in use');
             } else if (err.response.status === 409) {
+                setLoading(false)
                 // Handle Conflict error
             } else if (err.response.status === 403) {
+                setLoading(false)
                 // Handle Forbidden error
             } else if (err.response.status === 404) {
+                setLoading(false)
                 // Handle Not Found error
             } else if (err.response.status === 405) {
+                setLoading(false)
                 // Handle Method Not Allowed error
             }
         }
@@ -98,7 +101,7 @@ const SignUp = ({ navigation }) => {
     };
     const validatePassword = () => {
         if (!passwordRegex.test(password)) {
-            setPasswordError('Must contain 1 Capital letter, 1 special character, and 1 number');
+            setPasswordError('Must contain 1 Capital letter, 1 special character, and 1 number. Password must be at least 8 characters long');
         }
         else {
             setPasswordError('')
@@ -142,7 +145,7 @@ const SignUp = ({ navigation }) => {
                 secureTextEntry={true}
                 onChangeText={handleConfirmPassword} />
             {!passwordsMatch && (
-                <Text style={styles.labels}>Passwords do not match</Text>
+                <Text style={styles.error}>Passwords do not match</Text>
             )}
             <Button
                 onPress={() => handleSignUp()}

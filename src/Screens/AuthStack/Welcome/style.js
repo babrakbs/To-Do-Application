@@ -39,11 +39,11 @@ export const styles = StyleSheet.create({
     },
 
 
-    btn: {
+    btnNext: {
         paddingVertical: hp(1.5),
         alignItems: 'center',
         alignSelf: 'center',
-        backgroundColor: colors.purple,
+        backgroundColor: colors.primaryColor,
         width: wp(90),
         borderRadius: radius.radius1,
         marginVertical: hp(2)

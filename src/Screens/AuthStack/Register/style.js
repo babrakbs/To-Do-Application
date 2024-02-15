@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
         paddingVertical: hp(1.5),
         alignItems: 'center',
         alignSelf: 'center',
-        backgroundColor: colors.purple,
+        backgroundColor: colors.primaryColor,
         width: wp(90),
         borderRadius: radius.radius1,
         marginVertical: hp(2.5)
@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
         marginVertical:hp(2)
     },
     signInText: {
-        color: colors.purple,
+        color: colors.primaryColor,
         fontWeight: '700',
         fontSize: fontSize.fontSize4point2,
     },

@@ -9,11 +9,11 @@ const CustomButton = (props) => {
             onPress={props?.onPress}
             style={props?.style ? props?.style : styles.btn}>
             {props?.loading ?
-                <ActivityIndicator size={25} color={colors.primaryColor} animating={props?.loading} />
+                <ActivityIndicator size={25} color={props?.ActivityIndicatorColor ? props?.ActivityIndicatorColor : colors.white} animating={props?.loading} />
                 :
                 <Text
-                    style={props?.btnTitleStyle ? props.btnTitleStyle: styles.btnText}>
-            {props?.title} </Text>
+                    style={props?.btnTitleStyle ? props.btnTitleStyle : styles.btnText}>
+                    {props?.title} </Text>
             }
         </TouchableOpacity >
     );
@@ -21,7 +21,7 @@ const CustomButton = (props) => {
 const styles = StyleSheet.create({
     btn: {
         alignSelf: 'center',
-        backgroundColor: colors.purple,
+        backgroundColor: colors.primaryColor,
         paddingVertical: hp(1),
         marginTop: hp(3),
         width: wp(20),

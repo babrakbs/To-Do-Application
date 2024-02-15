@@ -143,6 +143,7 @@ const Home = ({ navigation }) => {
         style={styles.btnLogout}
         btnTitleStyle={styles.btnTextLogout}
         loading={logoutLoading}
+        ActivityIndicatorColor={colors.primaryColor}
         title="Logout"
       />
 

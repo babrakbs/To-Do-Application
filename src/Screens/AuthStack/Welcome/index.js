@@ -17,7 +17,7 @@ const Welcome = ({ navigation }) => {
 
       <Button
         onPress={() => navigation.replace('Login')}
-        style={styles.btn}
+        style={styles.btnNext}
         title="Next"
       />
     </View>

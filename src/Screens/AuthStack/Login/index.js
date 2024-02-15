@@ -118,7 +118,7 @@ const Login = ({ navigation }) => {
     const validatePassword = () => {
         if (password) {
             if (!passwordRegex.test(password)) {
-                setPasswordError('Must contain 1 Capital letter, 1 special character, and 1 number; Password must be at least 8 characters long');
+                setPasswordError('Must contain 1 Capital letter, 1 special character, and 1 number. Password must be at least 8 characters long');
             }
             else {
                 setPasswordError('');
