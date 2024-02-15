@@ -83,7 +83,7 @@ const ViewTodo = ({ navigation, route }) => {
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor={colors.primaryColor} />
       <Header
-        topTitle='Update ToDo'
+        topTitle='Update TO DO'
       />
 
       <Text style={styles.labels}>Enter Title</Text>

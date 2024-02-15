@@ -115,7 +115,7 @@ const Home = ({ navigation }) => {
         placeholder='Search your next task'
         onChangeText={handleSearch} />
       <Text
-        style={styles.listText}>List of ToDo's</Text>
+        style={styles.listText}>List of TO DO's</Text>
       {loading ? (
         <ActivityIndicator style={styles.ActivityIndicatorView} size={"large"} color={colors.primaryColor} animating={loading} />
       ) : (
@@ -138,7 +138,7 @@ const Home = ({ navigation }) => {
       <Button
         onPress={() => navigation.navigate('CreateToDo')}
         style={styles.btnTodo}
-        title="Create New ToDo"
+        title="Create New TO DO"
       />
       <Button
         onPress={() => handleLogout()}
