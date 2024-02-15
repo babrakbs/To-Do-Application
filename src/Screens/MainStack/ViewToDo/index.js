@@ -11,7 +11,6 @@ import { styles } from './style'
 
 const ViewTodo = ({ navigation, route }) => {
   const content = route?.params;
-  console.log('View Data', content?.data)
   const id = content?.data?.id
   const [title, setTitle] = useState(content?.data?.title)
   const [description, setDescription] = useState(content?.data?.description)

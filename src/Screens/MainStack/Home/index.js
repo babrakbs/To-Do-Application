@@ -56,7 +56,6 @@ const Home = ({ navigation }) => {
           'Authorization': `Bearer ${token}`
         }
       });
-      console.log('Data', res)
       if (res?.data?.success) {
         const updatedTasks = toDoTasks.filter(task => task.id !== id);
         setToDoTasks(updatedTasks);
@@ -78,7 +77,6 @@ const Home = ({ navigation }) => {
           'Content-Type': 'application/json',
         }
       });
-      console.log('RES', res)
       if (res?.data?.success) {
         setLogoutLoading(false)
         dispatch(setToken(null));

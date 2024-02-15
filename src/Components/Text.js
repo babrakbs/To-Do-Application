@@ -9,7 +9,6 @@ const CustomText = (props) => {
             numberOfLines={props?.numberOfLines}
             style={props?.style ? props.style : styles.title}
         >
-            {props?.value}
             {props?.children}
         </Text>
     );
