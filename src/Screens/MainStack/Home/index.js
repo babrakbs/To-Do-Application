@@ -109,13 +109,13 @@ const Home = ({ navigation }) => {
       <StatusBar backgroundColor={colors.primaryColor} />
 
       <Header
-        topTitle='TO DO'
+        topTitle='ToDo'
       />
       <InputField
         placeholder='Search your next task'
         onChangeText={handleSearch} />
       <Text
-        style={styles.listText}>List of TO DO's</Text>
+        style={styles.listText}>List of ToDo's</Text>
       {loading ? (
         <ActivityIndicator style={styles.ActivityIndicatorView} size={"large"} color={colors.primaryColor} animating={loading} />
       ) : (
@@ -138,7 +138,7 @@ const Home = ({ navigation }) => {
       <Button
         onPress={() => navigation.navigate('CreateToDo')}
         style={styles.btnTodo}
-        title="Create New TO DO"
+        title="Create New ToDo"
       />
       <Button
         onPress={() => handleLogout()}

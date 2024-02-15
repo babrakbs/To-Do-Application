@@ -81,7 +81,7 @@ const CreateToDo = ({ navigation }) => {
         <View style={styles.mainContainer}>
             <StatusBar backgroundColor={colors.primaryColor} />
             <Header
-                topTitle='Create New TO DO'
+                topTitle='Create New ToDo'
             />
             <Text style={styles.labels}>Enter Title</Text>
 
