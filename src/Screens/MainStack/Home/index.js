@@ -1,16 +1,16 @@
 import { useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Modal, StatusBar, View } from 'react-native'
+import { ActivityIndicator, FlatList, StatusBar, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../../Components/Button'
+import Card from '../../../Components/Card'
+import Header from '../../../Components/Header'
 import InputField from '../../../Components/InputField'
 import Text from '../../../Components/Text'
 import { baseUrl, colors } from '../../../Constants'
 import { setToken } from '../../../Redux/reducer'
 import { styles } from './style'
-import Card from '../../../Components/Card'
-import Header from '../../../Components/Header'
 
 const Home = ({ navigation }) => {
   const [toDoTasks, setToDoTasks] = useState([])

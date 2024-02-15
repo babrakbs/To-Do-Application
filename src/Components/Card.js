@@ -1,8 +1,8 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { colors, fontSize, radius } from "../Constants";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import Button from './Button'
-import Text from '../Components/Text'
+import Text from '../Components/Text';
+import { colors, fontSize, radius } from "../Constants";
+import Button from './Button';
 const Card = (props) => {
     return (
         <TouchableOpacity style={styles.flatListItemView} onPress={props?.cardPress}>

@@ -1,7 +1,7 @@
 import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { colors, radius, fontSize } from "../Constants";
-import Text from '../Components/Text'
+import Text from '../Components/Text';
+import { colors, fontSize, radius } from "../Constants";
 
 const CustomButton = (props) => {
     return (
