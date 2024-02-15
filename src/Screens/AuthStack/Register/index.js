@@ -1,57 +1,71 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { ActivityIndicator, Alert, Modal, StatusBar, View } from 'react-native'
-import CustomButton from '../../../Components/Button'
+import { Alert, StatusBar, View } from 'react-native'
+import Button from '../../../Components/Button'
 import Header from '../../../Components/Header'
 import InputField from '../../../Components/InputField'
-import CustomText from '../../../Components/Text'
+import Text from '../../../Components/Text'
 import { baseUrl, colors } from '../../../Constants'
 import { styles } from './style'
 
 const SignUp = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [confrimPassword, setConfirmPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [loading, setLoading] = useState(false)
-    const [response, setResponse] = useState()
 
     const handleSignUp = async () => {
         try {
-            if (email.length > 0 && password.length > 8) {
-                const res = await axios.post(`${baseUrl.api}register`, {
-                    email: email,
-                    password: password,
-                    password_confirmation: confrimPassword,
-                }, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
-                if (res?.data?.success) {
-                    setResponse(res.data);
-                    Alert.alert(res.data.message, '', [
-                        { text: 'OK', onPress: () => navigation.navigate('Login') }
-                    ]);
+            if (!email || !password) {
+                if (!email) {
+                    setEmailError('Please enter email');
                 }
-                else {
-                    Alert.alert('Something went wrong !', '', [
-                        { text: 'OK' }
-                    ]);
+                if (!password) {
+                    setPasswordError('Please enter password');
                 }
+                return;
             }
-            else {
-                setEmailError('Please enter email')
-                setPassword('Please enter password')
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('')
+
+            if (!emailRegex.test(email)) {
+                setEmailError('Invalid Email Pattern');
+                return;
+            }
+
+            if (!passwordRegex.test(password)) {
+                setPasswordError('Must contain 1 Capital letter, 1 special character, and 1 number; Password must be at least 8 characters long');
+                return;
+            }
+
+            setLoading(true);
+
+            const res = await axios.post(`${baseUrl.api}register`, {
+                email: email,
+                password: password,
+                password_confirmation: confirmPassword,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            setLoading(false);
+
+            if (res?.data?.success) {
+                Alert.alert(res.data.message, '', [
+                    { text: 'OK', onPress: () => navigation.navigate('Login') }
+                ]);
+            } else {
+                Alert.alert('Something went wrong !', '', [
+                    { text: 'OK' }
+                ]);
             }
         } catch (err) {
-            console.error('Login error:', err);
+            console.error('Signup error:', err);
             if (err.response && err.response.status === 422) {
+                setLoading(false)
                 setEmailError('This email is already in use');
             } else if (err.response.status === 409) {
                 // Handle Conflict error
@@ -64,6 +78,7 @@ const SignUp = ({ navigation }) => {
             }
         }
     };
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const handleEmail = async (input) => {
         setEmail(input);
@@ -97,83 +112,53 @@ const SignUp = ({ navigation }) => {
         <View showsVerticalScrollIndicator={false} style={styles.mainContainer}>
             <StatusBar backgroundColor={colors.primaryColor} />
             <Header
-                titleTop='To Do Application'
-                titleBottom='Register Screen'
-                customBottomTitleStyles={styles.customBottomTitleStyles} />
-            <CustomText
-                customStyle={styles.labels}
-                value='Enter Email' />
+                topTitle='TODO' />
+            <Text style={styles.labels}>Enter Email</Text>
             <InputField
                 placeholder='Email'
                 value={email}
                 onChangeText={handleEmail}
                 keyboardType='email-address'
-                onBlur={validateEmail}>
-            </InputField>
+                onBlur={validateEmail} />
             {emailError &&
-                <CustomText
-                    customStyle={styles.error}
-                    value={emailError} />
+                <Text style={styles.error}>{emailError}</Text>
+
             }
-            <CustomText
-                customStyle={styles.labels}
-                value='Enter Password' />
+            <Text style={styles.labels}>Enter Password</Text>
             <InputField
                 placeholder='Password'
                 value={password}
                 secureTextEntry={true}
                 onChangeText={handlePassword}
-                onBlur={validatePassword}>
-            </InputField>
+                onBlur={validatePassword} />
             {passwordError && (
-                <CustomText
-                    customStyle={styles.error}
-                    value='Must contain 1 Capital letter, 1 special character and 1 number having length of 8 characters long.' />
+                <Text style={styles.error}>{passwordError}</Text>
             )}
-            <CustomText
-                customStyle={styles.labels}
-                value='Confirm Password' />
+            <Text style={styles.labels}>Confirm Password</Text>
+
             <InputField
                 placeholder='Confirm Password'
-                value={confrimPassword}
+                value={confirmPassword}
                 secureTextEntry={true}
-                onChangeText={handleConfirmPassword}>
-            </InputField>
+                onChangeText={handleConfirmPassword} />
             {!passwordsMatch && (
-                <CustomText
-                    customStyle={styles.error}
-                    value='Passwords do not match' />
+                <Text style={styles.labels}>Passwords do not match</Text>
             )}
-
-            <CustomButton
-                styles={styles.signUpBtn}
-                onPress={() => handleSignUp()}>
-                <CustomText
-                    customStyle={styles.signUpBtnText}
-                    value='Sign Up' />
-            </CustomButton>
-            <CustomText
-                customStyle={styles.alreadyText}>
+            <Button
+                onPress={() => handleSignUp()}
+                style={styles.signUpBtn}
+                loading={loading}
+                title="Sign Up"
+            />
+            <Text
+                style={styles.alreadyText}>
                 Already have an Account?{" "}
-                <CustomText
-                    customStyle={styles.signUpText}
+                <Text
+                    style={styles.signInText}
                     onPress={() => navigation.goBack()}>
                     Sign In
-                </CustomText>
-            </CustomText>
-            <Modal
-                transparent={false}
-                animationType="slide"
-                visible={loading}
-                onRequestClose={() => {
-                    setLoading(false);
-                }}>
-                <View style={styles.modalBackground}>
-                    <View style={styles.modalContainer}>
-                        <ActivityIndicator size={"large"} color={colors.primaryColor} animating={loading} />
-                    </View>
-                </View>
-            </Modal>
+                </Text>
+            </Text>
         </View>
     )
 }

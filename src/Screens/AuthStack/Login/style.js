@@ -24,14 +24,14 @@ export const styles = StyleSheet.create({
         marginBottom:hp(1),
         fontWeight: '500'
     },
-    loginText: {
+    signInText: {
         fontWeight: '500',
         textAlign: "center",
         justifyContent: 'center',
         fontSize: fontSize.fontSize4,
         color: colors.white,
     },
-    btn: {
+    signInBtn: {
         paddingVertical: hp(1.5),
         alignItems: 'center',
         alignSelf: 'center',
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         borderRadius: radius.radius1,
         marginVertical: hp(2.5)
     },
-    alreadyText: {
+    accountText: {
         fontSize: fontSize.fontSize4,
         alignSelf: 'center',
         marginVertical: hp(2)
@@ -50,20 +50,11 @@ export const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: fontSize.fontSize4point2,
     },
-    error: {
-        fontSize: fontSize.avgSmall,
+   error: {
+        fontSize: fontSize.fontSize3point5,
         color: colors.red,
-        marginTop: hp(1),
+        marginTop: hp(0.5),
         paddingHorizontal: wp(5),
-    },
-    modalBackground: {
-        flex: 1,
-        backgroundColor: colors.white,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    modalContainer: {
-        justifyContent: "center",
-        alignSelf: "center",
+        fontWeight:'500'
     },
 })

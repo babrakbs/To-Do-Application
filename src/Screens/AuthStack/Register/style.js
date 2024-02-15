@@ -45,25 +45,16 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical:hp(2)
     },
-    signUpText: {
+    signInText: {
         color: colors.purple,
         fontWeight: '700',
         fontSize: fontSize.fontSize4point2,
     },
     error: {
-        fontSize: fontSize.avgSmall,
+        fontSize: fontSize.fontSize3point5,
         color: colors.red,
-        marginTop: hp(1),
+        marginTop: hp(0.5),
         paddingHorizontal: wp(5),
-    },
-    modalBackground: {
-        flex: 1,
-        backgroundColor: colors.white,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    modalContainer: {
-        justifyContent: "center",
-        alignSelf: "center",
+        fontWeight:'500'
     },
 })

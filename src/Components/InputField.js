@@ -7,7 +7,7 @@ const InputField = (props) => {
         <TextInput
             multiline={props?.multiline}
             numberOfLines={props?.numberOfLines}
-            style={props?.styles ? props.styles : styles.textInput}
+            style={props?.style ? props.style : styles.textInput}
             allowFontScaling={false}
             secureTextEntry={props?.secureTextEntry}
             placeholder={props?.placeholder}

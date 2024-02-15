@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { ActivityIndicator, Modal, StatusBar, View } from 'react-native'
+import { Keyboard, StatusBar, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import CustomButton from '../../../Components/Button'
+import Button from '../../../Components/Button'
+import Header from '../../../Components/Header'
 import InputField from '../../../Components/InputField'
-import CustomText from '../../../Components/Text'
+import Text from '../../../Components/Text'
 import { baseUrl, colors } from '../../../Constants'
 import { styles } from './style'
 
@@ -16,7 +17,6 @@ const ViewTodo = ({ navigation, route }) => {
   const [description, setDescription] = useState(content?.data?.description)
   const [titleError, setTitleError] = useState('')
   const [descriptionError, setDescriptionError] = useState('')
-  const [response, setResponse] = useState()
   const [loading, setLoading] = useState(false)
   const token = useSelector((state) => state?.reducer?.token);
 
@@ -34,20 +34,17 @@ const ViewTodo = ({ navigation, route }) => {
           }
         });
         if (res?.data?.success) {
+          Keyboard.dismiss()
           setTitle('');
           setDescription('');
           setTitleError('');
           setDescriptionError('');
-          setResponse(res.data);
           setLoading(false)
           navigation.goBack()
         }
       }
       catch (err) {
         console.error('Login error:', err);
-      }
-      finally {
-        setLoading(false)
       }
     }
     else {
@@ -86,61 +83,39 @@ const ViewTodo = ({ navigation, route }) => {
   return (
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor={colors.primaryColor} />
-      <CustomText
-        customStyle={styles.head}
-        value='Update ToDo' />
-      <CustomText
-        customStyle={styles.labels}
-        value='Enter Title' />
+      <Header
+        topTitle='Update ToDo'
+      />
+
+      <Text style={styles.labels}>Enter Title</Text>
       <InputField
         placeholder='Title'
         value={title}
         keyboardType='default'
         onChangeText={handleTitle}
-        onBlur={validateTitle}>
-      </InputField>
+        onBlur={validateTitle} />
       {titleError &&
-        <CustomText
-          customStyle={styles.error}
-          value={titleError} />
+        <Text style={styles.error}>{titleError}</Text>
       }
-      <CustomText
-        customStyle={styles.labels}
-        value='Enter Description' />
+      <Text style={styles.labels}>Enter Description</Text>
+
       <InputField
         multiline={true}
-        styles={styles.descpField}
+        style={styles.descpField}
         placeholder='Description'
         value={description}
         keyboardType='default'
         onChangeText={handleDescription}
-        onBlur={validateDescription}>
-      </InputField>
+        onBlur={validateDescription} />
       {descriptionError &&
-        <CustomText
-          customStyle={styles.error}
-          value={descriptionError} />
+        <Text style={styles.error}>{descriptionError}</Text>
       }
-      <CustomButton onPress={() => handleUpdateToDo()}
-        styles={styles.updateBtn}>
-        <CustomText
-          customStyle={styles.btnUpdateText}
-          value='Update' />
-      </CustomButton>
-
-      <Modal
-        transparent={false}
-        animationType="slide"
-        visible={loading}
-        onRequestClose={() => {
-          setLoading(false);
-        }}>
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <ActivityIndicator size={"large"} color={colors.primaryColor} animating={loading} />
-          </View>
-        </View>
-      </Modal>
+      <Button
+        onPress={() => handleUpdateToDo()}
+        style={styles.updateBtn}
+        loading={loading}
+        title="Update"
+      />
     </View>
   )
 }

@@ -7,7 +7,7 @@ const CustomText = (props) => {
             onPress={props?.onPress}
             allowFontScaling={false}
             numberOfLines={props?.numberOfLines}
-            style={props?.customStyle ? props.customStyle : styles.title}
+            style={props?.style ? props.style : styles.title}
         >
             {props?.value}
             {props?.children}

@@ -1,19 +1,21 @@
 import { useIsFocused } from '@react-navigation/native'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Alert, FlatList, Modal, StatusBar, View } from 'react-native'
+import { ActivityIndicator, FlatList, Modal, StatusBar, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import CustomButton from '../../../Components/Button'
+import Button from '../../../Components/Button'
 import InputField from '../../../Components/InputField'
-import CustomText from '../../../Components/Text'
+import Text from '../../../Components/Text'
 import { baseUrl, colors } from '../../../Constants'
 import { setToken } from '../../../Redux/reducer'
 import { styles } from './style'
+import Card from '../../../Components/Card'
+import Header from '../../../Components/Header'
 
 const Home = ({ navigation }) => {
-  const [response, setResponse] = useState()
   const [toDoTasks, setToDoTasks] = useState([])
   const [loading, setLoading] = useState(false)
+  const [logoutLoading, setLogoutLoading] = useState(false)
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch()
   const token = useSelector((state) => state?.reducer?.token);
@@ -33,7 +35,6 @@ const Home = ({ navigation }) => {
         }
       });
       if (res?.data?.success) {
-        setResponse(res.data);
         setToDoTasks(res.data.items.data)
       }
     }
@@ -47,6 +48,7 @@ const Home = ({ navigation }) => {
 
   const deleteItem = async (item) => {
     const id = item?.id
+    setLoading(true)
     try {
       const res = await axios.delete(`${baseUrl.api}item/${id}`, {
         headers: {
@@ -56,33 +58,18 @@ const Home = ({ navigation }) => {
       });
       console.log('Data', res)
       if (res?.data?.success) {
-        setResponse(res.data);
         const updatedTasks = toDoTasks.filter(task => task.id !== id);
         setToDoTasks(updatedTasks);
+        setLoading(false)
       }
     }
     catch (err) {
       console.error('Login error:', err);
     }
   }
-  const handleLogout = async () => {
-    Alert.alert(
-      "Logout",
-      "Are you sure you want to logout?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => confirmLogout() }
-      ],
-      { cancelable: false }
-    );
-  };
 
-  const confirmLogout = async () => {
-    setLoading(true);
+  const handleLogout = async () => {
+    setLogoutLoading(true);
     try {
       const res = await axios.post(`${baseUrl.api}logout`, {
         token: token,
@@ -93,91 +80,74 @@ const Home = ({ navigation }) => {
       });
       console.log('RES', res)
       if (res?.data?.success) {
+        setLogoutLoading(false)
         dispatch(setToken(null));
       }
     } catch (err) {
       console.error('Logout error:', err);
-    } finally {
-      setLoading(false);
+      setLogoutLoading(false);
     }
   };
 
   const handleSearch = (text) => {
     setSearchQuery(text);
   };
-  const filteredItems = toDoTasks.filter(item =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems =
+    toDoTasks.filter(item =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  const _renderEmptyData = () => {
+    return (
+      <View style={styles.upcomingView}>
+        <Text style={styles.upcomingTodo} value="You don't have any due task yet :)" />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor={colors.primaryColor} />
-      <CustomText
-        customStyle={styles.head}
-        value="To Do's List" />
+
+      <Header
+        topTitle='TODO'
+      />
       <InputField
         placeholder='Search your next task'
         onChangeText={handleSearch} />
-      <CustomText
-        customStyle={styles.listText}
-        value="List of ToDo's" />
-      {filteredItems.length > 0 ? (
+      <Text
+        style={styles.listText}>List of ToDo's</Text>
+      {loading ? (
+        <ActivityIndicator style={styles.ActivityIndicatorView} size={"large"} color={colors.primaryColor} animating={loading} />
+      ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={_renderEmptyData()}
           data={filteredItems}
           renderItem={({ item, index }) => (
-            <CustomButton styles={styles.flatListItemView}
-              onPress={() => navigation.navigate('ViewToDo', { data: item })}>
-              <View style={styles.titleDescpView}>
-                <CustomText numberOfLines={1} customStyle={styles.flatListTitle}>
-                  {item.title}
-                </CustomText>
-                <CustomText numberOfLines={1} customStyle={styles.flatListDescription} >
-                  {item.description}
-                </CustomText>
-              </View>
-              <View style={styles.deleteView}>
-                <CustomButton onPress={() => deleteItem(item)} styles={styles.deleteBtn}>
-                  <CustomText customStyle={styles.deleteText} value='Delete' />
-                </CustomButton>
-              </View>
-            </CustomButton>
+            <Card
+              title={item.title}
+              description={item.description}
+              cardPress={() => navigation.navigate('ViewToDo', { data: item })}
+              deletePress={() => deleteItem(item)}
+            />
           )}
           keyExtractor={item => item.id.toString()} />
-      ) : (
-        <View style={styles.upcomingView}>
-          <CustomText customStyle={styles.upcomingTodo} value="You don't have any due task yet :)" />
-        </View>
+
       )}
-      <CustomButton
-        styles={styles.btnTodo}
-        onPress={() => navigation.navigate('CreateToDo')}>
-        <CustomText
-          customStyle={styles.btnTextTodo}
-          value='Create New ToDo' />
-      </CustomButton>
 
-      <CustomButton
+      <Button
+        onPress={() => navigation.navigate('CreateToDo')}
+        style={styles.btnTodo}
+        title="Create New ToDo"
+      />
+      <Button
         onPress={() => handleLogout()}
-        styles={styles.btnLogout}>
-        <CustomText
-          customStyle={styles.btnTextLogout}
-          value='Logout' />
-      </CustomButton>
+        style={styles.btnLogout}
+        btnTitleStyle={styles.btnTextLogout}
+        loading={logoutLoading}
+        title="Logout"
+      />
 
-      <Modal
-        transparent={false}
-        animationType="slide"
-        visible={loading}
-        onRequestClose={() => {
-          setLoading(false);
-        }}>
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <ActivityIndicator size={"large"} color={colors.primaryColor} animating={loading} />
-          </View>
-        </View>
-      </Modal>
     </View >
   )
 }

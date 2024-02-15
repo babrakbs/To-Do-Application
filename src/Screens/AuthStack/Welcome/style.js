@@ -5,15 +5,28 @@ import { colors, fontSize, radius } from "../../../Constants";
 export const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        backgroundColor: colors.primaryColor,
+        backgroundColor: colors.white,
         justifyContent: "center",
     },
-    welcomeText: {
-        paddingVertical: hp(2),
-        fontWeight: '500',
+    headView: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    head: {
+        fontSize: fontSize.fontSize7,
+        paddingVertical: hp(1),
+        fontWeight: 'bold',
         textAlign: "center",
-        fontSize: fontSize.fontSize6,
-        color: colors.white,
+        color: colors.primaryColor,
+        width: wp(90),
+        alignSelf: 'center'
+    },
+    welcomeText: {
+        paddingVertical: hp(1),
+        fontWeight: '600',
+        textAlign: "center",
+        fontSize: fontSize.fontSize5,
+        color: colors.primaryColor,
         width: wp(90),
         alignSelf: 'center'
     },
@@ -24,6 +37,8 @@ export const styles = StyleSheet.create({
         fontSize: fontSize.fontSize4,
         color: colors.white,
     },
+
+
     btn: {
         paddingVertical: hp(1.5),
         alignItems: 'center',

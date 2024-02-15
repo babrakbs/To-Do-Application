@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { ActivityIndicator, Modal, StatusBar, View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import CustomButton from '../../../Components/Button'
+import Button from '../../../Components/Button'
+import Header from '../../../Components/Header'
 import InputField from '../../../Components/InputField'
-import CustomText from '../../../Components/Text'
+import Text from '../../../Components/Text'
 import { baseUrl, colors } from '../../../Constants'
 import { styles } from './style'
 
@@ -13,7 +14,6 @@ const CreateToDo = ({ navigation }) => {
     const [description, setDescription] = useState('')
     const [titleError, setTitleError] = useState('')
     const [descriptionError, setDescriptionError] = useState('')
-    const [response, setResponse] = useState()
     const [loading, setLoading] = useState(false)
     const token = useSelector((state) => state?.reducer?.token);
 
@@ -31,11 +31,11 @@ const CreateToDo = ({ navigation }) => {
                     }
                 });
                 if (res?.data?.success) {
+                    Keyboard.dismiss()
                     setTitle('');
                     setDescription('');
                     setTitleError('');
                     setDescriptionError('');
-                    setResponse(res.data);
                     setLoading(false)
                     navigation.goBack()
                 }
@@ -80,63 +80,42 @@ const CreateToDo = ({ navigation }) => {
     return (
         <View style={styles.mainContainer}>
             <StatusBar backgroundColor={colors.primaryColor} />
-            <CustomText
-                customStyle={styles.head}
-                value='Create New ToDo' />
-            <CustomText
-                customStyle={styles.labels}
-                value='Enter Title' />
+            <Header
+                topTitle='Create New ToDo'
+            />
+            <Text style={styles.labels}>Enter Title</Text>
 
             <InputField
                 placeholder='Title'
                 value={title}
                 keyboardType='email-address'
                 onChangeText={handleTitle}
-                onBlur={validateTitle}>
-            </InputField>
+                onBlur={validateTitle} />
             {titleError &&
-                <CustomText
-                    customStyle={styles.error}
-                    value={titleError} />
+                <Text style={styles.error}>{titleError}</Text>
+
             }
-            <CustomText
-                customStyle={styles.labels}
-                value='Enter Description' />
+            <Text style={styles.labels}>Enter Description</Text>
+
             <InputField
                 multiline={true}
-                styles={styles.descpField}
+                style={styles.descpField}
                 placeholder='Description'
                 value={description}
                 keyboardType='default'
                 onChangeText={handleDescription}
-                onBlur={validateDescription}>
-            </InputField>
+                onBlur={validateDescription} />
             {
                 descriptionError &&
-                <CustomText
-                    customStyle={styles.error}
-                    value={descriptionError} />
+                <Text style={styles.error}>{descriptionError}</Text>
             }
-            <CustomButton
+
+            <Button
                 onPress={() => handleCreateToDo()}
-                styles={styles.btnCreate}>
-                <CustomText
-                    customStyle={styles.btnTextCreate}
-                    value='Create' />
-            </CustomButton>
-            <Modal
-                transparent={false}
-                animationType="slide"
-                visible={loading}
-                onRequestClose={() => {
-                    setLoading(false);
-                }}>
-                <View style={styles.modalBackground}>
-                    <View style={styles.modalContainer}>
-                        <ActivityIndicator size={"large"} color={colors.primaryColor} animating={loading} />
-                    </View>
-                </View>
-            </Modal>
+                style={styles.btnCreate}
+                loading={loading}
+                title="Create"
+            />
         </View >
     )
 }

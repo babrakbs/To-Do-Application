@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
         paddingVertical: hp(1.5),
         alignItems: 'center',
         alignSelf: 'center',
-        backgroundColor: colors.purple,
+        backgroundColor: colors.primaryColor,
         width: wp(90),
         borderRadius: radius.radius1,
         marginVertical: hp(2)
@@ -54,10 +54,11 @@ export const styles = StyleSheet.create({
         paddingVertical: hp(1.5),
     },
     error: {
-        fontSize: fontSize.avgSmall,
+        fontSize: fontSize.fontSize3point5,
         color: colors.red,
-        marginTop: hp(1),
+        marginTop: hp(0.5),
         paddingHorizontal: wp(5),
+        fontWeight:'500'
     },
     modalBackground: {
         flex: 1,
