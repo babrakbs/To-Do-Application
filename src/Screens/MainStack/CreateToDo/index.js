@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { StatusBar, View } from 'react-native'
+import { Keyboard, StatusBar, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import Button from '../../../Components/Button'
 import Header from '../../../Components/Header'
