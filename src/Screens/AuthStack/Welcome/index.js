@@ -10,7 +10,7 @@ const Welcome = ({ navigation }) => {
     <View style={styles.mainContainer}>
       <StatusBar backgroundColor={colors.primaryColor} />
       <View style={styles.headView}>
-        <Text style={styles.head}>TODO</Text>
+        <Text style={styles.head}>TO DO</Text>
 
         <Text style={styles.welcomeText}>Remembering task is now easy...</Text>
       </View>

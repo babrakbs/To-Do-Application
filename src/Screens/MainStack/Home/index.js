@@ -97,7 +97,9 @@ const Home = ({ navigation }) => {
   const _renderEmptyData = () => {
     return (
       <View style={styles.upcomingView}>
-        <Text style={styles.upcomingTodo} value="You don't have any due task yet :)" />
+        <Text style={styles.upcomingTodo}>
+          You don't have any due task yet :)
+        </Text>
       </View>
     )
   }
@@ -107,7 +109,7 @@ const Home = ({ navigation }) => {
       <StatusBar backgroundColor={colors.primaryColor} />
 
       <Header
-        topTitle='TODO'
+        topTitle='TO DO'
       />
       <InputField
         placeholder='Search your next task'
@@ -119,7 +121,7 @@ const Home = ({ navigation }) => {
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
-          ListEmptyComponent={_renderEmptyData()}
+          ListEmptyComponent={_renderEmptyData}
           data={filteredItems}
           renderItem={({ item, index }) => (
             <Card

@@ -115,7 +115,7 @@ const SignUp = ({ navigation }) => {
         <View showsVerticalScrollIndicator={false} style={styles.mainContainer}>
             <StatusBar backgroundColor={colors.primaryColor} />
             <Header
-                topTitle='TODO' />
+                topTitle='TO DO' />
             <Text style={styles.labels}>Enter Email</Text>
             <InputField
                 placeholder='Email'

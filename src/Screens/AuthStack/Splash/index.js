@@ -16,7 +16,7 @@ const Splash = ({ navigation }) => {
                 backgroundColor={colors.primaryColor} />
             <Text
                 style={styles.splashText}>
-                ToDo Application
+                TO DO Application
             </Text>
 
         </View>

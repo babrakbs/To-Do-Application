@@ -132,7 +132,7 @@ const Login = ({ navigation }) => {
         <View style={styles.mainContainer}>
             <StatusBar backgroundColor={colors.primaryColor} />
             <Header
-                topTitle='TODO'
+                topTitle='TO DO'
                 titleBottom='Application'
             />
             <Text style={styles.labels}>Enter Email</Text>
