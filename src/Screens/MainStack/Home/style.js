@@ -129,5 +129,21 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "center",
     },
+    alertBackground:{
+        height:hp(50),
+        width:wp(50),
+        backgroundColor:'red',
+        alignSelf:'center',
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    alertContainer:{
+        height:hp(50),
+        width:wp(50),
+        backgroundColor:'red',
+        alignSelf:'center',
+        alignItems:'center',
+        justifyContent:'center'
+    },
     placeholderTextColor: colors.black,
 })

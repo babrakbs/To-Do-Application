@@ -71,34 +71,6 @@ const Home = ({ navigation }) => {
       console.error('Login error:', err);
     }
   }
-
-  // const handleLogOut = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const res = await axios.get(`${baseUrl.api}logout`, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${token}`
-  //       }
-  //     });
-
-  //     if (res?.data?.success) {
-  //       // setResponse(res.data);
-  //       dispatch(setToken(null))
-  //       // console.log('Response', res.data.items.data);
-  //       // setToDoTasks(res.data.items.data)
-  //       // console.log('Token', res.data.user.token);
-  //     }
-
-  //   }
-  //   catch (err) {
-  //     console.error('Login error:', err);
-  //   }
-  //   finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleLogout = async () => {
     Alert.alert(
       "Logout",

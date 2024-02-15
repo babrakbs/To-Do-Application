@@ -34,13 +34,16 @@ const SignUp = ({ navigation }) => {
 
                 if (res?.data?.success) {
                     setResponse(res.data);
-                    // console.log('Response', res.data);
+                    // console.log('Response', res.data.message);
                     Alert.alert(res.data.message, '', [
                         { text: 'OK', onPress: () => navigation.navigate('Login') }
                     ]);
+
                 }
                 else {
-                    //Error Occured !
+                    Alert.alert('Something went wrong !', '', [
+                        { text: 'OK'}
+                    ]);
                 }
 
             }
@@ -86,13 +89,16 @@ const SignUp = ({ navigation }) => {
     };
 
     //Password Logic
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d\s]).{8,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[_])(?=.*[^A-Za-z\d\s]).{8,}$/;
     const handlePassword = (input) => {
         setPassword(input);
     };
     const validatePassword = () => {
         if (!passwordRegex.test(password)) {
-            setPasswordError('Must contain 1 Capital letter, 1 special character and 1 number');
+            setPasswordError('Must contain 1 Capital letter, 1 special character and 1 number having length of 8 characters long.');
+        }
+        else{
+            setPasswordError('')
         }
     };
 
@@ -146,7 +152,7 @@ const SignUp = ({ navigation }) => {
             {passwordError && (
                 <CustomText
                     customStyle={styles.error}
-                    value='Password length must be 8 Characters Long'
+                    value='Must contain 1 Capital letter, 1 special character and 1 number having length of 8 characters long.'
                 />
             )}
 
